@@ -11,6 +11,7 @@ from bag.contexts import bag_contents
 import stripe
 import json
 
+
 @require_POST
 def cache_checkout_data(request):
     try:
@@ -31,6 +32,9 @@ def cache_checkout_data(request):
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+
+    print(stripe_public_key)
+    print(stripe_secret_key)
 
     if request.method == 'POST':
         bag = request.session.get('bag', {})
@@ -112,6 +116,9 @@ def checkout(request):
         'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
     }
+
+    print(stripe_public_key)
+    print(intent.client_secret )
 
     return render(request, template, context)
 
